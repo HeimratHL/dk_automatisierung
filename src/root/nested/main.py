@@ -13,7 +13,11 @@ class Main(tkinter.Frame):
         ## Pages ##
         loadPage = Load(self)
         createPage = Create(self)
-        homePage = Home(self, loadPage, createPage)
+        homePage = Home(self)
+        ## Connect Pages ##
+        loadPage.registerPage("homePage", homePage)
+        homePage.registerPage("loadPage", loadPage)
+        homePage.registerPage("createPage", createPage)
         ## Building the page container ##
         container = tkinter.Frame(self)
         container.pack(side="top", fill="both", expand=True)
