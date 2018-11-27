@@ -8,10 +8,12 @@ Created on 27.11.2018
 then  finding the appropriate code placeholder in the template and inserting the snippet at the given lineindex.
 '''
 
-import os
+import os, subprocess
+from tkinter.constants import ACTIVE
 
-#!!!have to check if it works on unix (bc of the D:\\)!!!
+#Important Filepaths
 strpath = os.path.join('D:\\', 'Desktop', 'pyfolder')
+firefoxPath = os.path.join('C:\\', 'Program Files', 'Mozilla Firefox', 'firefox.exe')
 
 #Caches the placeholder strings inside the snippets
 cTemplate = "<!--code_template17040512773411457715-->"
@@ -267,9 +269,28 @@ def newTableEntry(templateName,title,subtitle,size,price):
         file.close()
         
         print("Added new tableentry to template " + templateName)
+
+#Method to copy the wanted template into folder "active page" to all the binaries and assets. Also tries to launch the site afterwards in firefox.
+def showPage(templateName):
+    
+    templateFilename = templateName + ".html"
+    filepath = os.path.join(strpath,templateFilename)
+    activeFilepath = os.path.join(strpath, "activeSite", "getraenkekarte.html")
+    
+    if not os.path.isfile(filepath):
+        print("Template does not exist!")
+    else:
+        file = open(filepath, "r")
+        content = file.readlines()
+        file.close()
         
+        file = open(activeFilepath, "w")
+        file.writelines(content)
+        file.close()
         
+        subprocess.call([firefoxPath,'-new-tab', activeFilepath])
         
+
 #Main-Method, testing purposes only
 if __name__ == "__main__":     
     removeTemplate(umlaut("peterenis"))
@@ -279,4 +300,5 @@ if __name__ == "__main__":
     newTable(umlaut("peterenis"), umlaut("täbulator tabelle"))
     newTableEntry("peterenis", umlaut("bierÖ"), umlaut(3), "2,5", "3mark")
     newTableEntry("peterenis", umlaut("bier2"), umlaut(6), "45", "6mark")
+    showPage("peterenis")
         
