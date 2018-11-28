@@ -19,10 +19,6 @@ class Load(Page):
         tkinter.Button(self, text="Back", command=lambda:self.moveToPage("homePage")).grid(row=0, column=0, sticky=tkinter.NW, padx=10, pady=10)
         tkinter.Button(self, text="Up", command=lambda:self.scrollUp()).grid(row=1, column=0)
         tkinter.Button(self, text="Down", command=lambda:self.scrollDown()).grid(row=4, column=0)
-        tkinter.Button(self, text="empty").grid(row=1, column=1, sticky=tkinter.W)
-        tkinter.Button(self, text="empty").grid(row=2, column=1, sticky=tkinter.W)
-        tkinter.Button(self, text="empty").grid(row=3, column=1, sticky=tkinter.W)
-        tkinter.Button(self, text="empty").grid(row=4, column=1, sticky=tkinter.W)
         self.loadPresets()
     
     def scrollUp(self):

@@ -1,0 +1,1 @@
+py .\src\root\nested\main.py --resolution 320x200
