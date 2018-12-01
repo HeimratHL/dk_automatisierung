@@ -9,7 +9,6 @@ then  finding the appropriate code placeholder in the template and inserting the
 '''
 
 import os, subprocess
-from tkinter.constants import ACTIVE
 
 #Important Filepaths
 strpath = os.path.join('D:\\', 'Desktop', 'pyfolder')
@@ -293,7 +292,7 @@ def showPage(templateName):
 
 #Main-Method, testing purposes only
 if __name__ == "__main__":     
-    removeTemplate(umlaut("peterenis"))
+    #removeTemplate(umlaut("peterenis"))
     newTemplate(umlaut("peterenis"))
     newPage(umlaut("peterenis"), umlaut("abc"), umlaut("abcd"))
     newColumn(umlaut("peterenis"))
