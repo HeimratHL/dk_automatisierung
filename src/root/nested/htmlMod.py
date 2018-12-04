@@ -28,7 +28,35 @@ sizeNewEntry = "<!--entry-size32101880553337566628-->"
 priceNewEntry = "<!--entry-price45117288500038563995-->"
 
 #Other variables
-doubleNewLine = ["\n", "\n"]    
+doubleNewLine = ["\n", "\n"]
+
+'''
+'setVariables':
+allows other classes to set the needed variables for an instance. Possible usages are:
+-   setVariables(strpath)
+-   setVariables(strpath, firefoxPath)
+all not specified variables will keep it's standard value seen above
+!!!the two parameters do need to follow a convention in order to work:
+-   strpath and firefoxPath have to be paths rather than strings! os.path.join('C:\\', 'your', 'path') --> C:\your\path
+    this is needed for compatibility as other operating systems may use '/' instead of windows '\'
+'''
+def setVariables(*args):
+    global strpath
+    global firefoxPath
+    if len(args) == 1 and os.path.exists(args[0]):
+        strpath = args[0]
+    elif len(args) == 2 and os.path.exists(args[0]) and os.path.exists(args[1]):
+        strpath = args[0]
+        firefoxPath = args[1]
+    else:
+        print("ERROR in method setVariables:")
+        print("Missing or to many parameters?")
+        print("Broken parameter convention?")
+        print("Nonexisting filepath?")
+
+#outputs current set of global variables
+def getVariables():
+    print(strpath, firefoxPath)   
 
 #Method to filter out characters that HTML isn't familiar with
 def umlaut(zeile):

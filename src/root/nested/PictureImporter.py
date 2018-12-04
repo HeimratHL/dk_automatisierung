@@ -12,7 +12,43 @@ import os, sys
 
 sourcepath = os.path.join('E:\\')
 destpath = os.path.join('D:\\', 'Desktop', 'pyfolder', 'activeSite', 'assets')
-allowed_fileextensions = ['.mp4', '.tff', '.png','.gif']
+allowed_fileextensions = ['.mp4', '.tff', '.png','.gif', '.webm']
+
+
+'''
+'setVariables':
+allows other classes to set the needed variables for an instance. Possible usages are:
+-   setVariables(sourcepath)
+-   setVariables(sourcepath, destpath)
+-   setVariables(sourcepath, destpath, allowed_fileextensions)
+all not specified variables will keep it's standard value seen above
+!!!the three parameters do need to follow a convention in order to work:
+-   sourcepath and destpath have to be paths rather than strings! os.path.join('C:\\', 'your', 'path') --> C:\your\path
+    this is needed for compatibility as other operating systems may use '/' instead of windows '\'
+-   allowed_fileextensions needs to be a list and the elements need to start with '.'
+'''
+def setVariables(*args):
+    global sourcepath
+    global destpath
+    global allowed_fileextensions
+    if len(args) == 1 and os.path.exists(args[0]):
+        sourcepath = args[0]
+    elif len(args) == 2 and os.path.exists(args[0]) and os.path.exists(args[1]):
+        sourcepath = args[0]
+        destpath = args[1]
+    elif len(args) == 3 and os.path.exists(args[0]) and os.path.exists(args[1]) and isinstance(args[2], (list,tuple)):
+        sourcepath = args[0]
+        destpath = args[1]
+        allowed_fileextensions = args[2]
+    else:
+        print("ERROR in method setVariables:")
+        print("Missing or to many parameters?")
+        print("Broken parameter convention?")
+        print("Nonexisting filepath?")
+
+#outputs current set of global variables
+def getVariables():
+    print(sourcepath,destpath,allowed_fileextensions)
     
 #checks a list of filenames and returns a list without bad filetypes
 def checkFiles(names):
@@ -81,16 +117,17 @@ def rename(oldname):
         print("renamed: " + oldname + " -> " + newname)
 
 # MAIN
-#checks for and handles found duplicates
-duplicates()
-
-#creates a list of the files to copy. This list wont include files with unfitting html formats (i.e. Recycle.bin or anything.jpeg)
-copydir = checkFiles(os.listdir(path=sourcepath))
-
-#copies the files from the list above to 'destpath' as defined in the header of this file
-for i in copydir:
-    try:
-        copy2(os.path.join(sourcepath, i), destpath)
-        print(i + " copyied.")
-    except:
-        print("Unexpected error:", sys.exc_info()[0])
+def main():
+    #checks for and handles found duplicates
+    duplicates()
+    
+    #creates a list of the files to copy. This list wont include files with unfitting html formats (i.e. Recycle.bin or anything.jpeg)
+    copydir = checkFiles(os.listdir(path=sourcepath))
+    
+    #copies the files from the list above to 'destpath' as defined in the header of this file
+    for i in copydir:
+        try:
+            copy2(os.path.join(sourcepath, i), destpath)
+            print(i + " copyied.")
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
