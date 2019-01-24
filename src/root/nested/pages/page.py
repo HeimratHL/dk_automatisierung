@@ -11,5 +11,6 @@ class Page(tkinter.Frame):
     def moveToPage(self, pageName):
         try:
             getattr(self, pageName).lift()
+            getattr(self, pageName).update()
         except AttributeError:
             print(__name__ + ": missing '" + pageName + "'. Did you register it?")

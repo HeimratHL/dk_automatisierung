@@ -1,11 +1,9 @@
 import tkinter
 import argparse
+import globalVars
 from pages.home import Home
 from pages.load import Load
 from pages.create import Create
-
-## Globals ##
-title = "Heimrat Preislisten-Tool"
 
 class Main(tkinter.Frame):
     def __init__(self, *args, **kwargs):
@@ -28,7 +26,7 @@ class Main(tkinter.Frame):
         homePage.lift()
 
 ## Argument Parsing ##
-parser = argparse.ArgumentParser(description=title)
+parser = argparse.ArgumentParser(description=globalVars.title)
 parser.add_argument('--resolution', help='sets application gui size, provide string like 320x200', required=True)
 parser.add_argument('--fullscreen', help='fullscreens the application, default: False', default=False)
 args = parser.parse_args()
@@ -40,5 +38,5 @@ main.pack(side="top", fill="both", expand=True)
 window.attributes("-fullscreen", args.fullscreen)
 #window.overrideredirect(1)                                 #removes window title bar
 window.geometry(args.resolution)
-window.title(title)
+window.title(globalVars.title)
 window.mainloop()
